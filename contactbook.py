@@ -6,7 +6,7 @@ class Contact:
         self.name = name
         self.phone = phone
 
-        self.con = sqlite3.connect('persistent.db')
+        self.con = sqlite3.connect('persistent.db', check_same_thread=False)
         self.cur = self.con.cursor()
 
         self.cur.execute("INSERT INTO contact (name, phone) VALUES ('{0}','{1}')".format(self.name, self.phone))
@@ -17,7 +17,7 @@ class Contact:
 
 class ContactBook:
     def __init__(self):
-        self.con = sqlite3.connect('persistent.db')
+        self.con = sqlite3.connect('persistent.db', check_same_thread=False)
         self.cur = self.con.cursor()
 
     def index(self):
