@@ -27,3 +27,12 @@ class Contact:
         self.cur.execute('SELECT contact_id FROM contact WHERE phone="{0}"'.format(self.phone))
         self.con.commit()
 
+class ContactBook:
+    def __init__(self):
+        self.con = sqlite3.connect('persistent.db')
+        self.cur = self.con.cursor()
+
+    def index(self):
+        self.cur.execute('SELECT * FROM contact')
+        return self.cur.fetchall()
+
