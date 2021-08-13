@@ -26,3 +26,8 @@ class ContactBook:
 
     def add(self, name, phone):
         contact = Contact(name, phone)
+
+    def remove(self, id_):
+        self.cur.execute(f'DELETE FROM contact WHERE contact_id={id_}')
+        self.con.commit()
+
