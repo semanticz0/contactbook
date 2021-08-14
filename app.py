@@ -14,7 +14,7 @@ def index():
     return render_template("index.html", contacts=contactbook.index())
 
 
-@app.route("/delete/<id_>")
-def delete(id_):
+@app.route("/remove/<id_>")
+def remove(id_):
     contactbook.remove(id_)
     return redirect("/")

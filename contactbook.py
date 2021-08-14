@@ -25,6 +25,7 @@ class ContactBook:
             "INSERT INTO contact (name, phone) VALUES (?, ?)", 
             (name, phone))
 
+
     @commit
     def remove(self, id_):
         self.db.cur.execute("DELETE FROM contact WHERE contact_id=?",

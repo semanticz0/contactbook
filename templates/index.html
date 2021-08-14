@@ -13,6 +13,6 @@
 
 {% if contacts %}
 {% for row in contacts %}
-<p>{{row[1]}} - {{row[2]}} - <a href="/delete/{{row[0]}}">delete</a></p>  
+<p>{{row[1]}} - {{row[2]}} - <a href="/remove/{{row[0]}}">delete</a></p>  
 {% endfor %}
 {% endif %}
