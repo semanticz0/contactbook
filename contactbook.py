@@ -9,7 +9,8 @@ class Contact:
         self.con = sqlite3.connect('persistent.db', check_same_thread=False)
         self.cur = self.con.cursor()
 
-        self.cur.execute("INSERT INTO contact (name, phone) VALUES ('{0}','{1}')".format(self.name, self.phone))
+        self.cur.execute("INSERT INTO contact (name, phone) VALUES (?, ?)", (self.name, self.phone))
+
         self.con.commit()
 
     def __str__(self):
@@ -28,6 +29,6 @@ class ContactBook:
         contact = Contact(name, phone)
 
     def remove(self, id_):
-        self.cur.execute(f'DELETE FROM contact WHERE contact_id={id_}')
+        self.cur.execute('DELETE FROM contact WHERE contact_id=?',(id_))
         self.con.commit()
 
