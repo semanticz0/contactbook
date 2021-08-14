@@ -1,4 +1,4 @@
-from contactbook import Contact, ContactBook
+from contactbook import ContactBook
 
 book = ContactBook()
 print("Welcome to Contactbook.")

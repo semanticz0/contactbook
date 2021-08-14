@@ -1,15 +1,5 @@
 import sqlite3
 
-
-def commit(func):
-    def wrapper(*args, **kwargs):
-        db = DatabaseWrapper()
-        func(*args, **kwargs)
-        db.con.commit()
-
-    return wrapper
-
-
 class ContactBook:
     def __init__(self):
         self.db = DatabaseWrapper()
@@ -19,18 +9,22 @@ class ContactBook:
                 "SELECT contact_id, name, phone FROM contact")
         return self.db.cur.fetchall()
 
-    @commit
+    def search(self, name=None, phone=None):
+        self.db.cur.execute(
+            "SELECT name, phone FROM contact WHERE phone==?"
+            , (phone,))
+        return self.db.cur.fetchall()
+
     def add(self, name, phone):
         self.db.cur.execute(
             "INSERT INTO contact (name, phone) VALUES (?, ?)", 
             (name, phone))
+        self.db.con.commit()
 
-
-    @commit
     def remove(self, id_):
         self.db.cur.execute("DELETE FROM contact WHERE contact_id=?",
-                (id_))
-
+                (id_,))
+        self.db.con.commit()
 
 class DatabaseWrapper:
     def __init__(self):
