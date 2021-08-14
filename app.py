@@ -1,11 +1,20 @@
-from flask import Flask
-from contactbook import Contact, ContactBook
+from flask import Flask, request, render_template, redirect
+import json
+from contactbook import ContactBook
 
-contacts = ContactBook()
+contactbook = ContactBook()
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=['POST','GET'])
 def index():
-    return "{0}".format(contacts.index())
+    if request.method == 'POST':
+        contactbook.add(request.form['name'], request.form['phone'])
+        return render_template('index.html', contacts=contactbook.index())
+    return render_template('index.html', contacts=contactbook.index()) 
+
+@app.route("/delete/<id_>")
+def delete(id_):
+    contactbook.remove(id_)
+    return redirect("/")
 
