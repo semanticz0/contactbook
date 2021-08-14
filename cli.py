@@ -3,10 +3,10 @@ from contactbook import Contact, ContactBook
 book = ContactBook()
 print("Welcome to Contactbook.")
 
-while True: 
+while True:
     pref = input("What operation would you like to perform? (index, add, remove) ")
 
-    if pref == 'index':
+    if pref == "index":
         for number, row in enumerate(book.index()):
             print(f"{number} - ID{row[0]}. {row[1]}: {row[2]}")
 
@@ -23,5 +23,7 @@ while True:
         print("Contact deleted")
 
     else:
-        print("There are no other features available at this time. Thank you for your patience")
+        print(
+            "There are no other features available at this time. Thank you for your patience"
+        )
         exit()

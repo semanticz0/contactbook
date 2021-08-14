@@ -1,5 +1,6 @@
 <!doctype html>
 <title>Contactbook</title>
+
 <h1>Contacts</h1>
 <form action='/' method='post'>
     <label for="name">Name: </label>
@@ -12,6 +13,6 @@
 
 {% if contacts %}
 {% for row in contacts %}
-<p>{{row[1]}} - {{row[2]}} - <a href="/delete/{{row[0]}}">x</a></p>  
+<p>{{row[1]}} - {{row[2]}} - <a href="/delete/{{row[0]}}">delete</a></p>  
 {% endfor %}
 {% endif %}
