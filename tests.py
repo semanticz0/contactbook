@@ -15,6 +15,9 @@ class TestContactBook(unittest.TestCase):
                 self.contacts.search(phone="194218957912751"),
                 [])
 
+    def test_cannot_add_text_as_phone_number(self):
+        pass
+
 
 if __name__ == "__main__":
     unittest.main()

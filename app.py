@@ -7,12 +7,14 @@ contactbook = ContactBook()
 app = Flask(__name__)
 
 
-@app.route("/", methods=["POST", "GET"])
+@app.route("/")
 def index():
-    if request.method == "POST":
-        contactbook.add(request.form["name"], request.form["phone"])
     return render_template("index.html", contacts=contactbook.index())
 
+@app.route("/add", methods=["POST"])
+def add():
+    contactbook.add(request.form["name"], request.form["phone"])
+    return redirect("/")
 
 @app.route("/remove/<id_>")
 def remove(id_):
