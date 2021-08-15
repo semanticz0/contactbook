@@ -1,0 +1,13 @@
+<!doctype html>
+{% if contact %}
+<form action="{{ url_for('update', id_=contact[0])}}" method="post">
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name" value="{{contact[1]}}"></input><br>
+
+    <label for="phone">Phone: </label>
+    <input type="text" name="phone" id="phone" value="{{contact[2]}}"></input><br>
+
+    <input type="submit" value="Save"></input>
+</form>
+
+{% endif %}

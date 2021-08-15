@@ -16,6 +16,16 @@ def add():
     contactbook.add(request.form["name"], request.form["phone"])
     return redirect("/")
 
+@app.route("/edit/<id_>", methods=["GET"])
+def edit(id_):
+    contact = contactbook.find(id_)
+    return render_template("edit.html", contact=contact)
+        
+@app.route("/update/<id_>", methods=["POST"])
+def update(id_):
+    contactbook.update(id_, request.form["name"], request.form["phone"])
+    return redirect("/")
+
 @app.route("/remove/<id_>")
 def remove(id_):
     contactbook.remove(id_)
