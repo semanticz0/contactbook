@@ -16,8 +16,7 @@ class ContactDatabase:
     def index(self):
         self.cur.execute(
                 "SELECT contact_id, name, phone FROM contact")
-        result =  self.cur.fetchall()
-        newlist.append(map(lambda x: dict(x) + 1, item))
+        return self.cur.fetchall()
 
     def find(self, id_):
         self.cur.execute(
