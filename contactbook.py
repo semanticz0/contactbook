@@ -11,11 +11,13 @@ class ContactDatabase:
         self.con = connection
         self.con.isolation_level = None
         self.cur = self.con.cursor()
+        self.attr_keys = ['contact_id', 'name', 'phone']
 
     def index(self):
         self.cur.execute(
                 "SELECT contact_id, name, phone FROM contact")
-        return self.cur.fetchall()
+        result =  self.cur.fetchall()
+        newlist.append(map(lambda x: dict(x) + 1, item))
 
     def find(self, id_):
         self.cur.execute(
