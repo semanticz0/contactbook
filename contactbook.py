@@ -1,39 +1,41 @@
-import sqlite3
+from exceptions import InputError
 
-class ContactBook:
-    def __init__(self):
-        self.db = DatabaseWrapper()
+class ContactDatabase:
+   
+    # :connection param must be a connection-object compliant with the DB API 2.0 protocol
+    def __init__(self, connection):
+        self.con = connection
+        self.cur = self.con.cursor()
 
     def index(self):
-        self.db.cur.execute(
+        self.cur.execute(
                 "SELECT contact_id, name, phone FROM contact")
-        return self.db.cur.fetchall()
+        return self.cur.fetchall()
 
     def find(self, id_):
-        self.db.cur.execute(
+        self.cur.execute(
                 "SELECT contact_id, name, phone FROM contact WHERE contact_id=?",
                 (id_,))
-        return self.db.cur.fetchone()
+        return self.cur.fetchone()
         
-    def add(self, name, phone):
-        self.db.cur.execute(
+    def add(self, contact):
+        self.cur.execute(
             "INSERT INTO contact (name, phone) VALUES (?, ?)", 
-            (name, phone))
-        self.db.con.commit()
+            (contact.name, contact.phone))
+        self.con.commit()
 
     def remove(self, id_):
-        self.db.cur.execute("DELETE FROM contact WHERE contact_id=?",
+        self.cur.execute("DELETE FROM contact WHERE contact_id=?",
                 (id_,))
-        self.db.con.commit()
+        self.con.commit()
 
-    def update(self, id_, name, phone):
-        self.db.cur.execute(
+    def update(self, id_, contact):
+        self.cur.execute(
                 "UPDATE contact SET name=?, phone=? WHERE contact_id=?",
-                (name, phone, id_))
-        self.db.con.commit()
+                (contact.name, contact.phone, id_))
+        self.con.commit()
 
-class DatabaseWrapper:
-    def __init__(self):
-        self.con = sqlite3.connect("persistent.db",
-                check_same_thread=False)
-        self.cur = self.con.cursor()
+class Contact:
+    def __init__(self, name, phone):
+        self.name = name
+        self.phone = phone

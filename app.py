@@ -1,8 +1,10 @@
 from flask import Flask, request, render_template, redirect
 import json
-from contactbook import ContactBook
+import sqlite3
+from contactbook import ContactDatabase, Contact
 
-contactbook = ContactBook()
+connection= sqlite3.connect('persistent.db', check_same_thread=False)
+contactbook = ContactDatabase(connection)
 
 app = Flask(__name__)
 
@@ -13,7 +15,8 @@ def index():
 
 @app.route("/add", methods=["POST"])
 def add():
-    contactbook.add(request.form["name"], request.form["phone"])
+    contact = Contact(request.form["name"], request.form["phone"])
+    contactbook.add(contact)
     return redirect("/")
 
 @app.route("/edit/<id_>", methods=["GET"])
@@ -23,7 +26,8 @@ def edit(id_):
         
 @app.route("/update/<id_>", methods=["POST"])
 def update(id_):
-    contactbook.update(id_, request.form["name"], request.form["phone"])
+    contact = Contact(request.form["name"], request.form["phone"])
+    contactbook.update(id_, contact)
     return redirect("/")
 
 @app.route("/remove/<id_>")
