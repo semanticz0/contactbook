@@ -1,6 +1,7 @@
 import sqlite3
 import pytest 
 
+from exceptions import ContactNotFoundError
 from contactbook import ContactDatabase, Contact
 
 @pytest.fixture(autouse=True)
@@ -52,3 +53,7 @@ class TestContactDatabase():
     def test_remove(self):
         contacts.remove(1)
         assert contacts.find(1) is None 
+
+    def test_remove_non_existent_id(self):
+            contacts.remove(8)
+            

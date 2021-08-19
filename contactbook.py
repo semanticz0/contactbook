@@ -1,4 +1,4 @@
-from exceptions import InputError
+from exceptions import ContactNotFoundError
 
 class ContactDatabase:
    
@@ -11,7 +11,6 @@ class ContactDatabase:
         self.con = connection
         self.con.isolation_level = None
         self.cur = self.con.cursor()
-        self.attr_keys = ['contact_id', 'name', 'phone']
 
     def index(self):
         self.cur.execute(
@@ -42,4 +41,5 @@ class Contact:
     def __init__(self, name, phone):
         self.name = name
         self.phone = phone
+
 
